@@ -10,8 +10,9 @@ class CompanyController extends Controller
     // GET
     public function index(){
         //SELECT * FROM entidad
-        $companies =  Company::all();
-        return view('company.index', compact( 'companies'));
+        $companies =  Company::paginate('7');
+       //return $companies;
+         return view('company.index', compact( 'companies'));
        /// return 'hola mundo desde compañia';
     }
 
@@ -25,7 +26,10 @@ class CompanyController extends Controller
        // return $request->all();
         // Crea empresa
         Company::create($request->all());
-        return redirect()->route('company.index');
+        return redirect()->route('company.index')->with([
+            'message'=>'Se a creado un nuevo registro',
+            'type'=>'success'
+        ]);
     }
 
     public function destroy($id){
@@ -33,7 +37,10 @@ class CompanyController extends Controller
         // SELECT * FROM entidad WHERE ID = ?
         // true = DELETE FROM ENTIDAD WHERE ID = ?
         Company::find($id)->delete();
-        return redirect()->route('company.index');
+        return redirect()->route('company.index')->with([
+            'message'=>'Se ha eliminado correctamente',
+            'type'=>'warning'
+        ]);
     }
 
     public function show($id){
@@ -48,7 +55,10 @@ class CompanyController extends Controller
 
     public function update(Request $request, $id){
         $company=Company::find($id)->update($request->all());
-        return redirect()->route('company.index');
+        return redirect()->route('company.show',$id)->with([
+            'message'=>'Se a actualizado correctmente el usuario',
+            'type'=>'info'
+        ]);
     }
 
 

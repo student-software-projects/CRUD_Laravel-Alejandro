@@ -7,6 +7,12 @@
         <div class="card-body">
             <a  href="{{ route( 'company.create' ) }}" class="btn btn-info" Crear nueva empresa>Crear nueva empresa</a>
         </div>
+        @if(session('message'))
+            <div class="alert alert-{{session('type')}}" role="alert">
+                {{session('message')}}
+            </div>
+        @endif
+
 
         <div class="table-responsive">
             <table class="table table-bordered  table-striped bg-white table-sm mx-auto   text-center  mx-auto">
@@ -46,6 +52,7 @@
                 @endforeach
                 </tbody>
             </table>
+            {{$companies->links()}}
         </div>
     </div>
 

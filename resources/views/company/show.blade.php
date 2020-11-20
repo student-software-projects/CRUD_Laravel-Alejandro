@@ -1,6 +1,11 @@
 @extends('layouts.app')
 @section('content')
 
+    @if(session('message'))
+        <div class="alert alert-{{session('type')}}" role="alert">
+            {{session('message')}}
+        </div>
+    @endif
 
 <container>
     <div class="my-4 card card-body text-center col-lg-3 mx-auto">
@@ -31,6 +36,8 @@
                         <td>{{ $company->updated_at }}</td>
                     </tr>
                 </table>
+                <a class="btn btn-primary" href="{{route('company.index')}}">Volver</a>
+                <a href="{{ route('company.edit',$company->id) }}" class="btn  btn-success" >Editar  </a>
             </div>
         </div>
     </div>
